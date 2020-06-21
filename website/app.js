@@ -9,16 +9,37 @@ let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
 const submitBtn = document.getElementById('generate');
 const zipText = document.getElementById("zip");
 const feelingsText = document.getElementById('feelings');
+const items = document.getElementsByClassName('items');
 
 //getting weatherinfo - using a fetch call to openWeatherMap
-const weatherInfo = async zip => await fetch(`${baseUrl}${zip}&appid=${apiKey}`);
-
+const weatherInfo = async zip => await fetch(`${baseUrl+zip}&appid=${apiKey}`);
+//function to post to the server
+const postData = async(url, weatherInfo) => {
+    console.log(weatherInfo);
+    const response = await fetch(url, {
+        method: 'Post',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(weatherInfo)
+    });
+    try {
+        const newData = await response.json();
+        return newData;
+    } catch (error) {
+        console.log('error:', error);
+    }
+}
 submitBtn.addEventListener('click', async() => {
     submitBtn.textContent = 'Generating...';
     const zip = zipText.value;
     const feelings = feelingsText.value;
     const response = await weatherInfo(zip);
-    console.log(response.json())
+    const res = await response.json();
+    const temp = res.main.temp.toString() + '°C';
+    const city = res.name.toString();
+    console.log(temp);
+    console.log(city);
+    const dataset = { name: city, temperature: temp, date: newDate, feelings: feelings };
+    postData('/newData', dataset);
     submitBtn.textContent = 'Generate';
-
-})
+});
