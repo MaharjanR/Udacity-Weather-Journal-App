@@ -19,10 +19,22 @@ body {
 .holder {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .entry {
     background: rgba(59, 74, 107, .4);
+}
+
+#generate {
+    color: #f0d43a;
+    margin-top: 2vh;
+    width: 100%;
+}
+
+#generate:hover {
+    background-color: #f0d43a;
+    color: #AC4361;
 }
 
 #entryHolder {}
@@ -34,11 +46,21 @@ body {
 #content {}
 
 .zip {
-    margin-top: 5vh;
+    width: 100%;
+    margin-top: 2vh;
+}
+
+#zip {
+    margin-top: 2vh;
+    width: 99%;
 }
 
 .feel {
     margin-top: 5vh;
+}
+
+#feelings {
+    margin-top: 2vh;
 }
 
 .headline {

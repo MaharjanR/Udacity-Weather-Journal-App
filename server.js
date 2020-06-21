@@ -16,6 +16,11 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
+//get request
+// app.get('/', {
+
+// });
+
 const port = 8000;
 // Setup Server
 function listening() { console.log('Hello world'); }
