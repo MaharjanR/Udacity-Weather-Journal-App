@@ -18,7 +18,7 @@ const content = document.querySelector('#content');
 
 
 //getting weatherinfo - using a fetch call to openWeatherMap
-const weatherInfo = async zip => await fetch(`${baseUrl+zip}&appid=${apiKey}`);
+const weatherInfo = async zip => await fetch(`${baseUrl+zip},us&appid=${apiKey}`);
 //function to post to the server
 const postData = async(url, weatherInfo) => {
     const response = await fetch(url, {

@@ -4,12 +4,12 @@ body {
     margin: 0;
     background: #AC4261;
     color: #f0d43a;
+    text-align: left;
 }
 
 #app {
     display: grid;
     grid-auto-rows: minmax(150px, auto);
-    height: 100vh;
     justify-content: center;
     grid-gap: 1em;
     font-size: 20px;
@@ -59,10 +59,6 @@ body {
     margin-top: 5vh;
 }
 
-#feelings {
-    margin-top: 2vh;
-}
-
 .headline {
     text-align: center;
     font-size: 2em;
@@ -93,6 +89,11 @@ input {
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
     border: none;
+}
+
+.myInput {
+    height: 15vh;
+    margin-top: 1vh;
 }
 
 button {
@@ -149,14 +150,23 @@ button:focus {
 }
 
 @media(min-width:600px) {
+    body {
+        text-align: center;
+    }
     .headline {
         font-size: 3em;
     }
+    .myInput {
+        height: 40vh;
+        margin-top: 1vh;
+    }
     #app {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-areas: "left middle right";
+        grid-template-columns: 35% 60%;
+        justify-content: center;
+        grid-template-areas: "left middle middle";
     }
     .entry {
+        margin-top: 3vh;
         grid-area: left;
     }
     .zip {
