@@ -4,18 +4,24 @@ const baseUrl = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let data;
 
 //querying elements from the Dom.
 const submitBtn = document.getElementById('generate');
 const zipText = document.getElementById("zip");
 const feelingsText = document.getElementById('feelings');
 const items = document.getElementsByClassName('items');
+const date = document.querySelector('#date');
+const city = document.querySelector('#city');
+const temp = document.querySelector('#temp');
+const content = document.querySelector('#content');
+console.log(date, temp, content);
+
 
 //getting weatherinfo - using a fetch call to openWeatherMap
 const weatherInfo = async zip => await fetch(`${baseUrl+zip}&appid=${apiKey}`);
 //function to post to the server
 const postData = async(url, weatherInfo) => {
-    console.log(weatherInfo);
     const response = await fetch(url, {
         method: 'Post',
         credentials: 'same-origin',
@@ -25,6 +31,7 @@ const postData = async(url, weatherInfo) => {
     try {
         const newData = await response.json();
         return newData;
+
     } catch (error) {
         console.log('error:', error);
     }
@@ -37,9 +44,16 @@ submitBtn.addEventListener('click', async() => {
     const res = await response.json();
     const temp = res.main.temp.toString() + '°C';
     const city = res.name.toString();
-    console.log(temp);
-    console.log(city);
     const dataset = { name: city, temperature: temp, date: newDate, feelings: feelings };
-    postData('/newData', dataset);
+    data = await postData('/newData', dataset);
+    updateUI(data);
     submitBtn.textContent = 'Generate';
 });
+
+function updateUI(data) {
+    console.log(data.date);
+    date.textContent = data.date;
+    city.textContent = data.city;
+    temp.textContent = data.temperature;
+    content.textContent = data.feelings;
+}

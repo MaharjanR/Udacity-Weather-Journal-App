@@ -1,6 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
-let listEntries = [];
+let dataEntries = [];
 // Require Express to run server and routes
 const express = require('express');
 // Start up an instance of app
@@ -13,6 +13,7 @@ app.use(bodyParser.json())
 
 // Cors for cross origin allowance
 const cors = require('cors');
+const { json } = require('body-parser');
 app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
@@ -24,9 +25,10 @@ app.post('/newData', (request, response) => {
         projectData.temperature = data.temperature;
         projectData.date = data.date;
         projectData.feelings = data.feelings;
-        listEntries.push(projectData);
+        dataEntries.push(projectData);
     }
-})
+    response.send(JSON.stringify(projectData));
+});
 
 const port = 8000;
 // Setup Server
