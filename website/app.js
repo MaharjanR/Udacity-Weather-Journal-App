@@ -15,7 +15,6 @@ const date = document.querySelector('#date');
 const city = document.querySelector('#city');
 const temp = document.querySelector('#temp');
 const content = document.querySelector('#content');
-console.log(date, temp, content);
 
 
 //getting weatherinfo - using a fetch call to openWeatherMap
@@ -36,6 +35,16 @@ const postData = async(url, weatherInfo) => {
         console.log('error:', error);
     }
 }
+const getData = async(url) => {
+    const response = await fetch('getData');
+
+    try {
+        const data = await response.json();
+        updateUI(data);
+    } catch (error) {
+        console.log('error', error);
+    }
+}
 submitBtn.addEventListener('click', async() => {
     submitBtn.textContent = 'Generating...';
     const zip = zipText.value;
@@ -46,7 +55,7 @@ submitBtn.addEventListener('click', async() => {
     const city = res.name.toString();
     const dataset = { name: city, temperature: temp, date: newDate, feelings: feelings };
     data = await postData('/newData', dataset);
-    updateUI(data);
+    getData('getAll');
     submitBtn.textContent = 'Generate';
 });
 
