@@ -25,7 +25,7 @@ app.post('/newData', (request, response) => {
         projectData.date = data.date;
         projectData.feelings = data.feelings;
     }
-    response.send('Post Successful');
+    response.send({message: 'Post Successful'});
 });
 app.get('/getData', (request, response) => {
     response.send(JSON.stringify(projectData));
